@@ -11,7 +11,8 @@ package surface is settled.
 
 ```sh
 nix build .#cemu --print-build-logs
-# equivalent compatibility surfaces:
+nix build .#steam --print-build-logs
+# equivalent Cemu compatibility surfaces:
 nix build .#default
 nix build .#cemu-rocknix-package
 ```
@@ -21,6 +22,7 @@ Current package outputs:
 | Package | Purpose |
 | --- | --- |
 | `cemu` | Direct Cemu package replica of ROCKNIX `cemu-sa`, with package-owned `bin/cemu` wrapper. |
+| `steam` | ROCKNIX-informed guest-native Steam ARM64 package helpers. |
 | `default` | Alias to `cemu`. |
 | `cemu-rocknix-package` | Transitional compatibility alias for existing ROCKNIX Layer 14 consumers. |
 
@@ -28,16 +30,18 @@ Current package outputs:
 
 ```text
 packages/cemu/           Cemu derivation, manifest, patches, SM8550 settings
+packages/steam/          Guest-native Steam ARM64 helpers, resources, and manifest
 scripts/static-checks.sh Cheap invariants for package boundaries
 ```
 
 ## Package boundary
 
-The package owns emulator-generic runtime setup:
+Packages own emulator-generic or package-generic setup:
 
 - Nix Vulkan loader visibility in `bin/cemu`
 - SDL screensaver guard in `bin/cemu`
 - Cemu runtime data and SM8550 default settings under `$out/share/Cemu`
+- Steam ARM64 guest-native seed/launch helpers, bootstrap resources, and source evidence under `$out/share/steam-rocknix-bootstrap` and `$out/nix-support/rocknix-steam-bootstrap`
 - build evidence under `$out/nix-support/rocknix-cemu-build`
 
 This repo intentionally does **not** own:
@@ -46,6 +50,7 @@ This repo intentionally does **not** own:
 - SM8550 host CPU/GPU tuning helpers
 - guest profile promotion/deploy scripts
 - BOTW/live validation orchestration
+- guest nix-ld/FHS loader policy, FEX rootfs management, binfmt toggling, Sway/Gamescope launch policy, or per-game Proton settings
 
 Those belong in downstream integrations unless/until we decide they should be
 shared here as separately reviewed adapter packages.
