@@ -12,7 +12,7 @@ grep -q 'default = cemu' flake.nix \
 grep -q 'cemu-rocknix-package = cemu' flake.nix \
   || fail "compatibility alias must remain available for current ROCKNIX scripts"
 
-grep -q 'exec "\$cemu_wrapper_dir/Cemu"' packages/cemu/rocknix-package.nix \
+grep -q 'exec "\\$cemu_wrapper_dir/Cemu"' packages/cemu/rocknix-package.nix \
   || fail "package wrapper must exec real Cemu binary"
 grep -q 'vulkan_loader_lib_path=' packages/cemu/rocknix-package.nix \
   || fail "package wrapper must own Vulkan loader path"
