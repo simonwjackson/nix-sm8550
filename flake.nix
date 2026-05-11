@@ -17,7 +17,7 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           pkgsSdl2Classic = nixpkgs-sdl2-classic.legacyPackages.${system};
-          cemu = pkgs.callPackage ./packages/cemu/rocknix-package.nix {
+          cemu = pkgs.callPackage ./packages/cemu/package.nix {
             SDL2_classic = pkgsSdl2Classic.SDL2;
           };
         in {

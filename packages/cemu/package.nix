@@ -33,7 +33,7 @@
 }:
 
 let
-  manifest = import ./rocknix-package-manifest.nix;
+  manifest = import ./manifest.nix;
 in
 
 # Direct ROCKNIX cemu-sa package replica for Layer 14 guest testing.
