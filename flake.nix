@@ -20,9 +20,11 @@
           cemu = pkgs.callPackage ./packages/cemu/package.nix {
             SDL2_classic = pkgsSdl2Classic.SDL2;
           };
+          steam = pkgs.callPackage ./packages/steam/package.nix { };
         in {
           default = cemu;
           cemu = cemu;
+          steam = steam;
           # Compatibility alias for ROCKNIX Layer 14 scripts/docs while they
           # migrate to the shorter monorepo package name.
           cemu-rocknix-package = cemu;
